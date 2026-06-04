@@ -108,7 +108,10 @@ export const analyzeProfile = asyncHandler(async (req, res, next) => {
 
   const savedProfile = rows[0];
   if (savedProfile.top_languages) {
-    savedProfile.top_languages = JSON.parse(savedProfile.top_languages);
+    savedProfile.top_languages =
+      typeof savedProfile.top_languages === 'string'
+        ? JSON.parse(savedProfile.top_languages)
+        : savedProfile.top_languages;
   }
 
   res.status(200).json({
@@ -147,7 +150,12 @@ export const getAllProfiles = asyncHandler(async (req, res, _next) => {
 
   // Parse JSON fields
   profiles.forEach((p) => {
-    if (p.top_languages) p.top_languages = JSON.parse(p.top_languages);
+    if (p.top_languages) {
+      p.top_languages =
+        typeof p.top_languages === 'string'
+          ? JSON.parse(p.top_languages)
+          : p.top_languages;
+    }
   });
 
   res.status(200).json({
@@ -188,8 +196,12 @@ export const getSingleProfile = asyncHandler(async (req, res, next) => {
 
   const profile = rows[0];
   if (profile.top_languages) {
-    profile.top_languages = JSON.parse(profile.top_languages);
+    profile.top_languages =
+      typeof profile.top_languages === 'string'
+        ? JSON.parse(profile.top_languages)
+        : profile.top_languages;
   }
+
 
   res.status(200).json({
     success: true,
@@ -253,7 +265,12 @@ export const compareProfiles = asyncHandler(async (req, res, next) => {
   );
 
   rows.forEach((r) => {
-    if (r.top_languages) r.top_languages = JSON.parse(r.top_languages);
+    if (r.top_languages) {
+      r.top_languages =
+        typeof r.top_languages === 'string'
+          ? JSON.parse(r.top_languages)
+          : r.top_languages;
+    }
   });
 
   const notFound = usernames.filter((u) => !rows.find((r) => r.username === u));

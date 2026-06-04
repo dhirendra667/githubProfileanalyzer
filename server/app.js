@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 // Third-party Middlewares
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL || 'http://localhost:5173'],
+    origin: [process.env.FRONTEND_URL || 'http://localhost:5173', 'https://cute-meringue-b232e8.netlify.app',],
     credentials: true,
   })
 );
